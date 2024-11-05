@@ -53,12 +53,16 @@ button {
   align-items: center;
 }
 
-.condition{
+.condition {
   font-size: large;
-  font-weight:normal
+  font-weight: normal;
 }
 
-.day{
-  font-size:medium;
-  font-weight: light
+.day {
+  font-size: medium;
+  font-weight: light;
+}
+
+.weekCart {
+  display: flex;
 }

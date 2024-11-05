@@ -40,3 +40,25 @@ button {
   cursor: pointer;
   font-weight: bold;
 }
+
+.current {
+  max-width: 25%;
+  margin-left: auto;
+  margin-right: auto;
+  padding: 1rem;
+  border: 1px solid gray;
+  border-radius: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.condition{
+  font-size: large;
+  font-weight:normal
+}
+
+.day{
+  font-size:medium;
+  font-weight: light
+}

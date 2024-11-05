@@ -1,5 +1,5 @@
 const form = document.querySelector("form");
-const today = document.getElementsByClassName("today")[0];
+const cart = document.querySelector("section");
 
 const dayName = (dateString) => {
   const date = new Date(dateString);
@@ -20,16 +20,17 @@ http://api.weatherapi.com/v1/forecast.json?key=b9ad3ea277b643dc92892849240511&q=
       .then((data) => {
         var cityName = `${data.location.name}/${data.location.country}`;
         var temperature = `${data.current.temp_c}°C`;
-        var time = data.location.localtime.split(" ");
+        var dateTime = data.location.localtime.split(" ");
         var condition = data.current.condition.text;
         var icon = data.current.condition.icon;
         console.log(data);
-        console.log(time);
 
-        today.innerHTML += `<img alt='icon' src='${icon}'></img>
-        <h2>${cityName}</h2>
-        <p>${condition} - ${temperature}</p>
-        <p>${dayName(time[0])}</p>`;
+        cart.innerHTML += `<h2>${cityName}</h2>
+        <div class='current'>
+        <img alt='icon' src='${icon}'></img>
+        <p class='condition'>${condition} - ${temperature}</p>
+        <p class='day'>${dayName(dateTime[0])}</p>
+        </div>`;
       })
       .catch((err) => {
         console.error("ERROR! ", err);

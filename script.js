@@ -1,6 +1,5 @@
 const form = document.querySelector("form");
 const cart = document.querySelector("section");
-const week = document.getElementsByClassName("weekCart")[0];
 
 const dayName = (dateString) => {
   const date = new Date(dateString);
@@ -37,17 +36,18 @@ form.addEventListener("submit", async (event) => {
       <p class='condition'>${condition} - ${temperature}</p>
       <p class='day'>${dayName(dateTime[0])} - ${dateTime[1]}</p>
       </div>`;
-
       result.forecast.forecastday.forEach((day) => {
         const weekDay = dayName(day.date);
         const icon = day.day.condition.icon;
-        const maxTemp = `${day.day.maxtemp_c}°`;
-        const minTemp = `${day.day.minTemp_c}°`;
+        const maxTemp = `${Math.round(day.day.maxtemp_c)}°`;
+        const minTemp = `${Math.round(day.day.mintemp_c)}°`;
 
-        week.innerHTML += `<div class='weekDay'>
+        cart.innerHTML += `<div class='weekDay'>
         <h2>${weekDay}</h2>
         <img alt='weekDay' src='${icon}'>
-        <p class='minMax'>${(minTemp, maxTemp)}</p>
+        <p class='minMax'>
+        <span class='min'>${minTemp}</span><span class='max'>${maxTemp}</span>
+        </p>
         </div>`;
       });
     } else if (result.error) {

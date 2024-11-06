@@ -1,6 +1,7 @@
 const form = document.querySelector("form");
 const cart = document.querySelector("section");
-var currentDqy = "";
+const week = document.getElementsByClassName("weekCart")[0];
+
 const dayName = (dateString) => {
   const date = new Date(dateString);
   return date.toLocaleDateString("en-US", { weekday: "long" });
@@ -23,32 +24,35 @@ form.addEventListener("submit", async (event) => {
   if (city) {
     var result = await getCurrentDay(city);
     console.log("the current day is: ", result);
+    if (result.current) {
+      var cityName = `${result.location.name}/${result.location.country}`;
+      var temperature = `${result.current.temp_c}°C`;
+      var dateTime = result.location.localtime.split(" ");
+      var condition = result.current.condition.text;
+      var icon = result.current.condition.icon;
 
-    var cityName = `${result.location.name}/${result.location.country}`;
-    var temperature = `${result.current.temp_c}°C`;
-    var dateTime = result.location.localtime.split(" ");
-    var condition = result.current.condition.text;
-    var icon = result.current.condition.icon;
-
-    cart.innerHTML += `<h2>${cityName}</h2>
+      cart.innerHTML += `<h2>${cityName}</h2>
       <div class='current'>
       <img alt='icon' src='${icon}'></img>
       <p class='condition'>${condition} - ${temperature}</p>
       <p class='day'>${dayName(dateTime[0])} - ${dateTime[1]}</p>
       </div>`;
 
-    result.forecast.forecastday.forEach((day) => {
-      const weekDay = dayName(day.date);
-      const icon = day.day.condition.icon;
-      const maxTemp = `${day.day.maxtemp_c}°`;
-      const minTemp = `${day.day.minTemp_c}°`;
+      result.forecast.forecastday.forEach((day) => {
+        const weekDay = dayName(day.date);
+        const icon = day.day.condition.icon;
+        const maxTemp = `${day.day.maxtemp_c}°`;
+        const minTemp = `${day.day.minTemp_c}°`;
 
-      cart.innerHTML += `<div class='weekCart'>
+        week.innerHTML += `<div class='weekDay'>
         <h2>${weekDay}</h2>
         <img alt='weekDay' src='${icon}'>
         <p class='minMax'>${(minTemp, maxTemp)}</p>
         </div>`;
-    });
+      });
+    } else if (result.error) {
+      cart.innerHTML += `<h1 class='error'>${result.error.message}</h1>`;
+    }
   }
   form.reset();
 });

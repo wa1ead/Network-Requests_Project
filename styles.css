@@ -66,3 +66,13 @@ button {
 .weekCart {
   display: flex;
 }
+
+.error {
+  text-align: center;
+  width: 100%;
+  background-color: hotpink;
+  color: crimson;
+  font-weight: light;
+  font-size: large;
+  padding: 4rem;
+}
